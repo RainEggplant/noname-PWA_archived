@@ -31048,6 +31048,14 @@
 			else{
 				if(navigator.app&&navigator.app.exitApp){
 					navigator.app.exitApp();
+				}else{
+					if(window.fullscreenOrStandalone){
+						window.onpopstate = null;
+						window.history.back();
+						window.location.replace('exit.html');
+					}else{
+						window.close();
+					}
 				}
 			}
 		},
