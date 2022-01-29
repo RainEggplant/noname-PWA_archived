@@ -24,6 +24,25 @@ function isFullscreenOrStandalone() {
   return isFullscreen || isStandalone;
 }
 
+function isAndroid() {
+  return navigator.userAgent.toLowerCase().indexOf("android") > -1;
+}
+
+function isIOS() {
+  return (
+    [
+      "iPad Simulator",
+      "iPhone Simulator",
+      "iPod Simulator",
+      "iPad",
+      "iPhone",
+      "iPod",
+    ].includes(navigator.platform) ||
+    // iPad on iOS 13 detection
+    (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+  );
+}
+
 function defineNotificationTipStyle() {
   const css = `#screen-bottom {
   display: none;
@@ -69,35 +88,40 @@ function defineNotificationTipStyle() {
 }
 
 function handleBackEvents() {
-  if (window.performance.getEntriesByType("navigation")[0].type == 'navigate') {
+  if (window.performance.getEntriesByType("navigation")[0].type == "navigate") {
     // only push history when navigating rather than refreshing
-    window.history.pushState({name: "noname-prehome"}, "");
+    window.history.pushState({ name: "noname-prehome" }, "");
   }
-  document.addEventListener('DOMContentLoaded', function() {
-    // create notification tip element
-    const div_bottom = document.createElement("div");
-    div_bottom.id = "screen-bottom";
-    const div_tip = document.createElement("div");
-    div_tip.id = "notification-tip";
-    div_tip.appendChild(document.createTextNode("再按一次返回键退出"));
-    div_bottom.appendChild(div_tip);
-    document.body.appendChild(div_bottom);
+  document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+      // create notification tip element
+      const div_bottom = document.createElement("div");
+      div_bottom.id = "screen-bottom";
+      const div_tip = document.createElement("div");
+      div_tip.id = "notification-tip";
+      div_tip.appendChild(document.createTextNode("再按一次返回键退出"));
+      div_bottom.appendChild(div_tip);
+      document.body.appendChild(div_bottom);
 
-    // handle back button
-    window.onpopstate = function(e) {
-      div_bottom.classList.add("show");
-      div_tip.classList.add("show");  // show the notification tip
-      setTimeout(() => {
-        div_bottom.classList.remove("show");
-        div_tip.classList.remove("show");  // hide the notification tip
-        window.history.pushState({name: "noname-prehome"}, "");
-      }, 2000);
-    };
-  }, false);
+      // handle back button
+      window.onpopstate = function (e) {
+        div_bottom.classList.add("show");
+        div_tip.classList.add("show"); // show the notification tip
+        setTimeout(() => {
+          div_bottom.classList.remove("show");
+          div_tip.classList.remove("show"); // hide the notification tip
+          window.history.pushState({ name: "noname-prehome" }, "");
+        }, 2000);
+      };
+    },
+    false
+  );
 }
 
-var fullscreenOrStandalone = isFullscreenOrStandalone();
-if (fullscreenOrStandalone) {
+var isAndroidApp = isAndroid() && isFullscreenOrStandalone();
+var isIOSApp = isIOS() && isFullscreenOrStandalone();
+if (isAndroidApp) {
   defineNotificationTipStyle();
   handleBackEvents();
 }
