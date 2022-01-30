@@ -23,7 +23,7 @@
 
 #### Windows / Linux / Mac / Android
 
-推荐使用基于 Chromium 内核的浏览器（如 Chrome, 新版 Edge）访问无名杀的站点地址进行安装，Firefox 可能存在显示 bug。
+推荐使用基于 Chromium 内核的浏览器（如 Chrome, 新版 Edge）访问无名杀的站点地址（Firefox 可能存在显示 bug），然后打开浏览器菜单，点击 “**安装应用**” （若只看到 “添加到主屏幕”，请**稍等一两分钟并刷新**，或者等待浏览器自动弹出安装请求）。
 
 #### iOS
 
@@ -35,4 +35,5 @@ iOS 仅 Safari 浏览器可以安装 PWA，请访问无名杀的站点地址，�
 
 ### 注意：
 
-Safari 用户如果要使用联机功能，请启用实验性功能中的 `NSURLSession WebSocket`。
+- 初次访问无名杀站点时可能会提示 “是否重置游戏”，移动设备会提示 “是否切换到触屏模式”，确认即可。
+- Safari 用户如果要使用联机功能，请启用实验性功能中的 `NSURLSession WebSocket`。
