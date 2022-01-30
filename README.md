@@ -1,5 +1,7 @@
 # noname-PWA
 
+> 无名杀是基于社区的开源、免费的三国杀客户/服务端。
+ 
 无名杀的 “渐进式网络应用程序 (Progressive Web App)” 版本 —— [点击体验](https://raineggplant.github.io/noname-PWA) ！
 
 ## 简介
